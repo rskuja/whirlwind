@@ -1,6 +1,5 @@
 import sys,os
 from whirlwind.core.log import Log
-from tornado import locale
 
 class Bootstrap():
     def __init__(self):
@@ -54,15 +53,12 @@ class Bootstrap():
         
         #setup the controller action routes
         self.application = tornado.web.Application(url_routes,**settings)
-
+        
         #instantiate a server instance
         http_server = tornado.httpserver.HTTPServer(self.application)
         
         #bind server to port
         http_server.listen(options.port)
-
-        #gets locales at server start
-	    locale.load_translations(options.locales)
         
         #log our start message
         Log.info("Ready and listening")
@@ -77,4 +73,3 @@ class Bootstrap():
     @staticmethod
     def run(path):
        (Bootstrap()).main(path)
-
